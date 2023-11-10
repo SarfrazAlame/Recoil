@@ -167,7 +167,6 @@ function CourseCard(props) {
 }
 
 function Price() {
-
     const price = useRecoilValue(coursePrice);
     return <>
         <Typography variant="subtitle2" style={{color: "gray"}}>
