@@ -69,4 +69,5 @@ router.get("/purchasedCourse", authenticateJwt, async (req, res) => {
     }
 })
 
+
 module.exports = router
