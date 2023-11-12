@@ -44,4 +44,18 @@ router.post("/course", authenticateJwt, async(req,res)=>{
     res.json({message:"Course created successfully", courseId:course.id})
 }
 )
+
+
+
+
+router.get("/course", authenticateJwt, async(req,res)=>{
+    const course = await Course.find({})
+    res.json({course})
+})
+
+router.get("/course/:courseId", authenticateJwt, async(req,res)=>{
+    const courseId = req.params.courseId
+    const course = await Course.find({courseId})
+    res.json({course})
+})
 module.exports = router
