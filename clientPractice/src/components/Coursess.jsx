@@ -5,21 +5,21 @@ import { useParams } from "react-router-dom";
 const Coursess = () => {
   const [data, setData] = useState([]);
   const courseId = useParams();
-  const fetchDataById = async () => {
-    const response = await axios.get(
-      `http://localhost:4000/admin/course/${courseId}`,
-      {
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/admin/course/${courseId}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-      }
-    );
-    console.log(response.data.course);
-    setData(response.data.course);
-  };
-
-  useEffect(() => {
-    fetchDataById();
+      })
+      .then((res) => {
+        console.log(res.data.course)
+        setData(res.data.course);
+      })
+      .catch((e) => {
+        setData(null)
+      });
   }, []);
   return (
     <div>
