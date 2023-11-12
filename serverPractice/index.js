@@ -11,7 +11,7 @@ app.use(cors())
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 
-mongoose.connect("mongodb://127.0.0.1:27017/courses")
+mongoose.connect("mongodb://127.0.0.1:27017/coursesPractice")
 
 app.listen(4000, () => {
     console.log("port running on 4000")

@@ -10,7 +10,7 @@ const Course = () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    });
+    }); 
     setCourse(response.data.course);
   };
   useEffect(() => {
@@ -23,7 +23,7 @@ const Course = () => {
           <h1 className="text-2xl mt-4">{x.title}</h1>
           <p className="mt-3">{x.description}</p>
           <img className="mt-3" src={x.imageLink} alt="" />
-          <Link to={`/${x._id}`} className="text-2xl mx-12 bg-blue-600 px-7 mt-4 rounded text-white">Edit</Link>
+          <Link to={`/course/${x._id}`} className="text-2xl mx-12 bg-blue-600 px-7 mt-4 rounded text-white">Edit</Link>
         </div>
       ))}
     </div>
