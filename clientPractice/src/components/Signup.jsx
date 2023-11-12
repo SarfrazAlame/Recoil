@@ -14,7 +14,7 @@ const Signup = () => {
     });
     let data = response.data;
     localStorage.setItem("token", data.token);
-    navigate("/signin");
+    navigate("/")
   };
 
   return (

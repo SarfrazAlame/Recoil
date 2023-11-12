@@ -26,7 +26,7 @@ const AddCourse = () => {
   };
 
   return (
-    <div>
+    <div className="mx-56">
       <div className="my-3">
         <input
           className="mt-2 border w-80 py-2 border-gray-600 my-4 rounded"

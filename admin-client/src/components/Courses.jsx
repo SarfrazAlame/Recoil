@@ -17,7 +17,7 @@ function Courses() {
     }
 
     useEffect(() => {
-        init();
+        // init();
     }, []);
 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
