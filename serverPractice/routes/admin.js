@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
     res.json({ message: "logged in successfully", token })
 })
 
-router.post("/course", authenticateJwt, async(req,res)=>{
+router.post("/courses", authenticateJwt, async(req,res)=>{
     const course = new Course(req.body)
     await course.save()
     res.json({message:"Course created successfully", courseId:course.id})
@@ -48,12 +48,12 @@ router.post("/course", authenticateJwt, async(req,res)=>{
 
 
 
-router.get("/course", authenticateJwt, async(req,res)=>{
+router.get("/courses", authenticateJwt, async(req,res)=>{
     const course = await Course.find({})
     res.json({course})
 })
 
-router.get("/course/:courseId", authenticateJwt, async(req,res)=>{
+router.get("/courses/:courseId", authenticateJwt, async(req,res)=>{
     const courseId = req.params.courseId
     const course = await Course.find({courseId})
     res.json({course})
