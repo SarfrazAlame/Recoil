@@ -1,35 +1,44 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { courseState } from "../store/atom/course";
+import { courseStateLoading, courseTitle } from "../store/selectors/course";
 
 const Coursess = () => {
-  const [data, setData] = useState([]);
   const courseId = useParams();
+  const setCourse = useSetRecoilState(courseState);
+  const isCourseLoading = useRecoilValue(courseStateLoading);
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/admin/course/${courseId}`, {
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        console.log(res.data.course)
-        setData(res.data.course);
+        if (res.data.course) {
+          setCourse({ isLoading: false, course: res.data.course });
+        } else {
+          setCourse({ isLoading: false, course: res.data.course });
+        }
       })
       .catch((e) => {
-        setData(null)
+        setCourse({ isLoading: false, course: res.data.course });
       });
   }, []);
-  return (
-    <div>
-      {data.map((y) => (
+  if (isCourseLoading) {
+    return <>Loading...</>;
+  } else {
+    return (
+      <>
         <div>
-          <h1>{y.title}</h1>
+          {/* <h1>{courseTitle}</h1> */}
         </div>
-      ))}
-    </div>
-  );
+      </>
+    );
+  }
 };
 
 export default Coursess;
