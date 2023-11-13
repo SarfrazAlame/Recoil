@@ -12,7 +12,7 @@ const Course = () => {
       },
     }); 
     setCourse(response.data.course);
-  };
+  };  
   useEffect(() => {
     getAllCourse();
   }, []);

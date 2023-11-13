@@ -3,29 +3,33 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { courseState } from "../store/atom/course";
-import { courseStateLoading, courseTitle } from "../store/selectors/course";
+import {
+  courseDescription,
+  courseStateLoading,
+  courseTitle,
+} from "../store/selectors/course";
 
 const Coursess = () => {
   const courseId = useParams();
   const setCourse = useSetRecoilState(courseState);
   const isCourseLoading = useRecoilValue(courseStateLoading);
+  const title = useRecoilValue(courseTitle);
+  const description = useRecoilValue(courseDescription);
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/admin/course/${courseId}`, {
+        method: "GET",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        if (res.data.course) {
-          setCourse({ isLoading: false, course: res.data.course });
-        } else {
-          setCourse({ isLoading: false, course: res.data.course });
-        }
+        console.log(res.data.course);
+        setCourse({ isLoading: false, course: res.data.course });
       })
       .catch((e) => {
-        setCourse({ isLoading: false, course: res.data.course });
+        setCourse({ isLoading: false, course: null });
       });
   }, []);
   if (isCourseLoading) {
@@ -34,7 +38,7 @@ const Coursess = () => {
     return (
       <>
         <div>
-          {/* <h1>{courseTitle}</h1> */}
+          <h1>{description}</h1>
         </div>
       </>
     );
