@@ -9,12 +9,13 @@ import Course from "./components/Course";
 import Coursess from "./components/Coursess";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { userAtom } from "./store/atom/atom";
+import { userAtom } from "./store/atom/user";
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Header />
+        <GetAdmin/>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<Signup />} />
@@ -28,22 +29,30 @@ const App = () => {
   );
 };
 
-async function getAdmin() {
-  const setuser = useSetRecoilState(userAtom);
-  const response = await axios.get("http://localhost:4000/admin/me", {
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-  });
-  if (response.data.username) {
-    setuser({ isLoading: false, userEmail: response.data.username });
-  } else {
-    setuser({ isLoading: true, userEmail: null });
-  }
+function GetAdmin() {
+    const setuser = useSetRecoilState(userAtom);
+
+    const fetchUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/admin/me", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      if (response.data.username) {
+        setuser({ isLoading: false, userEmail: response.data.username });
+      } else {
+        setuser({ isLoading: true, userEmail: null });
+      }
+    } catch (error) {
+      setuser({isLoading:false, userEmail:null})
+    }
+    };
 
   useEffect(() => {
-    getAdmin();
+    fetchUser();
   }, []);
+
   return <></>;
 }
 

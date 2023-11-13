@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userEmailState } from "../store/selectors/userEmail";
 
 const Header = () => {
-  const token = localStorage.getItem("token");
+  const userEmail = useRecoilValue(userEmailState)
   return (
     <div className="w-full h-16 flex justify-between items-center">
       <Link to={"/"} className="text-2xl mx-12 ">
         Coursera
       </Link>
-      {token ? (
+      {userEmail ? (
         <>
           <div className="flex gap-5 mx-12">
             <Link to={"/addcourse"} className="text-xl text-blue-500">AddCourse</Link>
@@ -17,6 +19,10 @@ const Header = () => {
             onClick={()=>{
               localStorage.clear("token")
               window.location("/")
+              userAtom({
+                isLoading:false,
+                userEmail:null
+              })
             }}
             >Logout</button>
           </div>
