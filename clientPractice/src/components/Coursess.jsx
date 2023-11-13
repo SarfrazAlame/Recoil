@@ -10,7 +10,7 @@ const Coursess = () => {
     axios
       .get(`http://localhost:4000/admin/course/${courseId}`, {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Authorization": "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((res) => {
